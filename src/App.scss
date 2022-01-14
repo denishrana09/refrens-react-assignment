@@ -1,3 +1,108 @@
-.App {
-  text-align: center;
+.app-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 8em;
+}
+
+// search input component styles
+.search-bar-container {
+  display: flex;
+  flex-direction: column;
+  width: 34em;
+  height: 3.8em;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0px 2px 12px 3px rgba(0, 0, 0, 0.14);
+}
+.search-input-container {
+  width: 95%;
+  min-height: 4em;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 2px 15px;
+}
+.search-input {
+  width: 95%;
+  height: 100%;
+  outline: none;
+  border: none;
+  font-size: 21px;
+  color: #12112e;
+  font-weight: 500;
+  border-radius: 6px;
+  background-color: transparent;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+  &:focus {
+    outline: none;
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+
+  &::placeholder {
+    color: #bebebe;
+    transition: all 250ms ease-in-out;
+  }
+}
+.search-icon {
+  color: #bebebe;
+  font-size: 27px;
+  margin-right: 10px;
+  margin-top: 6px;
+  vertical-align: middle;
+}
+.close-icon {
+  color: #bebebe;
+  font-size: 23px;
+  vertical-align: middle;
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    color: #dfdfdf;
+  }
+}
+.line-separator {
+  display: flex;
+  min-width: 100%;
+  min-height: 2px;
+  background-color: #d8d8d878;
+}
+.search-content {
+  // width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  overflow-y: auto;
+}
+.loading-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.warning-message {
+  color: #a1a1a1;
+  font-size: 14px;
+  display: flex;
+  align-self: center;
+  justify-self: center;
+}
+
+// card component styles
+.card-container {
+  width: 100%;
+  min-height: 6em;
+  border-bottom: 2px solid #d8d8d852;
+  padding: 6px 8px;
+  align-items: center;
 }
