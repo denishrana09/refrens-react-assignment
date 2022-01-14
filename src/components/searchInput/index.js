@@ -55,17 +55,11 @@ export const SearchInput = (props) => {
     setLoading(true);
     setNoUsersData(false);
 
-    /*
-
-    // TODO
-    const URL = prepareSearchQuery(searchQuery);
-
-    const response = await axios.get(URL).catch((err) => {
+    const test = await axios.get("/api").catch((err) => {
       console.log("Error: ", err);
     });
+    console.log(test)
 
-    
-    */
     const response = dummyResponse;
     if (response) {
       console.log("Response: ", response.data);
