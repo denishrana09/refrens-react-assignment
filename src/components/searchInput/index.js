@@ -27,7 +27,10 @@ export const SearchInput = (props) => {
 
   const changeHandler = (e) => {
     e.preventDefault();
-    if (e.target.value.trim() === "") setNoUsersData(false);
+    if (e.target.value.trim() === "") {
+      setUsersData([]);
+      setNoUsersData(false);
+    }
 
     setSearchQuery(e.target.value);
   };
@@ -134,6 +137,7 @@ export const SearchInput = (props) => {
                   name={user.name}
                   address={user.address}
                   pincode={user.pincode}
+                  query={searchQuery}
                 />
               ))}
             </>
