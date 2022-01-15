@@ -1,11 +1,12 @@
 export const Card = (props) => {
-  const { key, name, address } = props;
+  const { customId, name, address } = props;
 
   return (
     <div className="card-container">
-      <p>{key}</p>
+      <div>{customId}</div>
       <h3>{name}</h3>
       <div>{address}</div>
+      {/* todo: john found in items */}
     </div>
   );
 };

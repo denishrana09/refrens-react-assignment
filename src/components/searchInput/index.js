@@ -10,7 +10,7 @@ import {
   placeholderText,
   containerVariants,
   containerTransition,
-  dummyResponse,
+  // dummyResponse,
 } from "../constant";
 import { Card } from "../card";
 
@@ -55,12 +55,12 @@ export const SearchInput = (props) => {
     setLoading(true);
     setNoUsersData(false);
 
-    const test = await axios.get("/api").catch((err) => {
-      console.log("Error: ", err);
-    });
-    console.log(test)
+    const response = await axios
+      .get(`/users?data=${encodeURIComponent(searchQuery)}`)
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
 
-    const response = dummyResponse;
     if (response) {
       console.log("Response: ", response.data);
       if (response.data && response.data.length === 0) setNoUsersData(true);
@@ -123,15 +123,18 @@ export const SearchInput = (props) => {
           )}
           {!isLoading && noUsersData && (
             <div className="loading-wrapper">
-              <span className="warning-message">
-                No Tv Shows or Series found!
-              </span>
+              <span className="warning-message">No User Found</span>
             </div>
           )}
           {!isLoading && !isEmpty && (
             <>
               {usersData.map((user) => (
-                <Card key={user.id} name={user.name} address={user.address} />
+                <Card
+                  customId={user.customId}
+                  name={user.name}
+                  address={user.address}
+                  pincode={user.pincode}
+                />
               ))}
             </>
           )}
