@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+
 const userModel = require("./models");
 mongoose.connect("mongodb://localhost:27017/react-test", {
   useNewUrlParser: true,
@@ -18,15 +19,14 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
-});
-
 app.post("/add_user", async (request, response) => {
-  const { name, age } = request.body;
+  const { customId, name, items, address, pincode } = request.body;
   const user = new userModel({
+    customId,
     name,
-    age,
+    items,
+    address,
+    pincode,
   });
 
   try {
@@ -37,13 +37,29 @@ app.post("/add_user", async (request, response) => {
   }
 });
 
+function escapeRegex(string) {
+  return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+}
+
 app.get("/users", async (request, response) => {
-  const users = await userModel.find({});
+  let { data } = request.query;
+  if (!data) {
+    return response.send([]);
+  }
+  const result = await userModel.find({
+    $or: [
+      { customId: { $regex: escapeRegex(data), $options: "i" } },
+      { name: { $regex: escapeRegex(data), $options: "i" } },
+      { address: { $regex: escapeRegex(data), $options: "i" } },
+      { pincode: { $regex: escapeRegex(data), $options: "i" } },
+      { items: { $regex: escapeRegex(data), $options: "i" } },
+    ],
+  });
 
   try {
-    response.send(users);
+    return response.send(result);
   } catch (error) {
-    response.status(500).send(error);
+    return response.status(500).send(error);
   }
 });
 
