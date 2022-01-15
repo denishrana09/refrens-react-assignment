@@ -5,7 +5,9 @@ import { IoClose, IoSearch } from "react-icons/io5";
 import { AnimatePresence, motion } from "framer-motion";
 import MoonLoader from "react-spinners/MoonLoader";
 
-import { useDebounce } from "../hooks/debounceHook";
+import useDebounce from "../hooks/debounceHook";
+import useRoveFocus from "../hooks/useRoveFocus";
+
 import {
   placeholderText,
   containerVariants,
@@ -22,6 +24,7 @@ export const SearchInput = (props) => {
   const [isLoading, setLoading] = useState(false);
   const [usersData, setUsersData] = useState([]);
   const [noUsersData, setNoUsersData] = useState(false);
+  const [focus, setFocus] = useRoveFocus(usersData.length);
 
   const isEmpty = !usersData || usersData.length === 0;
 
@@ -131,13 +134,16 @@ export const SearchInput = (props) => {
           )}
           {!isLoading && !isEmpty && (
             <>
-              {usersData.map((user) => (
+              {usersData.map((user, index) => (
                 <Card
                   customId={user.customId}
                   name={user.name}
                   address={user.address}
                   pincode={user.pincode}
                   query={searchQuery}
+                  setFocus={setFocus}
+                  index={index}
+                  focus={focus === index}
                 />
               ))}
             </>

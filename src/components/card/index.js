@@ -1,3 +1,4 @@
+import { useEffect, useRef, useCallback } from "react";
 import _ from "lodash";
 
 const Highlighted = ({ text = "", highlight = "" }) => {
@@ -22,12 +23,34 @@ const Highlighted = ({ text = "", highlight = "" }) => {
 };
 
 export const Card = (props) => {
-  const { customId, name, address, query } = props;
+  const { customId, name, address, query, focus, index, setFocus } = props;
   const queryFound =
     customId.includes(query) || name.includes(query) || address.includes(query);
 
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (focus) {
+      // Move element into view when it is focused
+      ref.current.focus();
+    }
+  }, [focus]);
+
+  const handleSelect = useCallback(() => {
+    alert(`${name}`);
+    // setting focus to that element when it is selected
+    setFocus(index);
+  }, [name, index, setFocus]);
+
   return (
-    <div className="card-container">
+    <div
+      className="card-container"
+      tabIndex={focus ? 0 : -1}
+      role="button"
+      ref={ref}
+      onClick={handleSelect}
+      onKeyPress={handleSelect}
+    >
       <h3 className="mt-0">{customId}</h3>
       <p className="text-light font-italic">
         {name.includes(query) ? (

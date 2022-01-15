@@ -102,13 +102,14 @@
 
 // card component styles
 .card-container {
-  width: 100%;
+  width: 95%;
   // min-height: 6em;
   border-bottom: 2px solid #d8d8d852;
   padding: 15px;
   align-items: center;
   &:hover {
     background-color: lightyellow;
+    cursor: pointer;
   }
 }
 
@@ -158,4 +159,8 @@ mark {
   background: none;
   color: blue;
   font-weight: bold;
+}
+.card-container:focus-visible {
+  outline: none;
+  background-color: lightyellow;
 }

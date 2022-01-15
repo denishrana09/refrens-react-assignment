@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useDebounce(value, timeout, callback) {
+export default function useDebounce(value, timeout, callback) {
   const [timer, setTimer] = useState(null);
 
   const clearTimer = () => {
